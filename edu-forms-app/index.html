@@ -1,210 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>نماذج تعليمية | شهادات وتقارير</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="topbar">
-    <button id="menuBtn" aria-label="فتح القائمة">☰</button>
-    <h1>نماذج تعليمية - نسخة محدثة</h1>
-  </header>
-
-  <aside id="drawer" class="drawer closed">
-    <div class="drawer-header">
-      <h2>القائمة</h2>
-      <button id="closeDrawer" aria-label="إغلاق">×</button>
-    </div>
-
-    <nav class="nav">
-      <details open>
-        <summary>الشهادات</summary>
-        <a href="#cert-thanks" class="nav-link">شهادة شكر</a>
-        <a href="#cert-generic" class="nav-link">شهادة تفوق</a>
-      </details>
-      <details>
-        <summary>التقارير</summary>
-        <a href="#report-weekly" class="nav-link">تقرير إنجاز أسبوعي</a>
-        <a href="#report-parent" class="nav-link">تقرير تواصل ولي أمر</a>
-      </details>
-      <details>
-        <summary>أدوات إضافية</summary>
-        <a href="#tools-batch" class="nav-link">توليد جماعي من CSV</a>
-        <a href="#assets" class="nav-link">الصور والمستندات</a>
-      </details>
-    </nav>
-  </aside>
-
-  <main id="content">
-    <section class="card">
-      <h2>مرحباً يا فاطمة 👋</h2>
-      <p>هذه النسخة تسمح بــ <b>إرفاق صور ومستندات داخل المشروع على GitHub</b> واستخدام الصور المرفوعة داخل الشهادات والتقارير.</p>
-      <ol>
-        <li>لجعل الملفات دائمة: ارفعيها إلى مجلد <code>assets/images</code> أو <code>assets/docs</code> من واجهة GitHub → Upload files.</li>
-        <li>تقدرين أيضاً سحب صورة مؤقتاً هنا (لن تُحفظ على السيرفر) وستظهر فوراً في الشهادة.</li>
-      </ol>
-    </section>
-
-    <section id="cert-thanks" class="card">
-      <h2>شهادة شكر</h2>
-      <form class="grid" onsubmit="return false;">
-        <label>اسم الطالبة<input id="ct_name" placeholder="مثال: سارة خالد" /></label>
-        <label>المناسبة<input id="ct_reason" placeholder="مثال: تميزها في مشروع STEM" /></label>
-        <label>التاريخ<input id="ct_date" type="date" /></label>
-        <label>اسم المعلمة<input id="ct_teacher" placeholder="مثال: فاطمة سعد العمري" /></label>
-        <label>رقم تسلسلي<input id="ct_serial" placeholder="مثال: 1447-001" /></label>
-        <label>اختر شعاراً من المشروع
-          <select id="ct_logo_select"></select>
-        </label>
-        <label>أو ارفعي شعاراً مؤقتاً
-          <input type="file" id="ct_logo_upload" accept="image/*" />
-        </label>
-        <label>ختم (اختياري) من المشروع
-          <select id="ct_stamp_select"></select>
-        </label>
-      </form>
-      <div class="actions">
-        <button onclick="renderThanks()">معاينة</button>
-        <button class="primary" onclick="downloadPDF('preview-thanks','شهادة-شكر')">حفظ كـ PDF</button>
-      </div>
-      <div class="canvas-wrap">
-        <div id="preview-thanks" class="certificate a4">
-          <div class="cert-header">
-            <img id="ct_logo_img" src="assets/images/logo.png" class="logo" alt="logo">
-            <div class="school">
-              <div>الثانوية الثانية والخمسون - مكتب تعليم العوالي</div>
-              <div>وزارة التعليم - المملكة العربية السعودية</div>
-            </div>
-          </div>
-          <h3 class="cert-title">شهادة شكر وتقدير</h3>
-          <p class="cert-line">تمنح للطالبة</p>
-          <div class="cert-name" id="ct_out_name">—</div>
-          <p class="cert-text">تقديراً ل<span id="ct_out_reason">—</span>.</p>
-          <div class="cert-footer">
-            <div class="left"><div>المعلمة</div><div id="ct_out_teacher">—</div></div>
-            <div class="right"><div>التاريخ</div><div id="ct_out_date">—</div></div>
-          </div>
-          <img id="ct_stamp_img" class="stamp" src="" alt="" />
-          <div class="serial" id="ct_out_serial"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="cert-generic" class="card">
-      <h2>شهادة تفوق</h2>
-      <form class="grid" onsubmit="return false;">
-        <label>اسم الطالبة<input id="cg_name" /></label>
-        <label>الإنجاز<input id="cg_reason" /></label>
-        <label>التاريخ<input id="cg_date" type="date" /></label>
-        <label>المعلمة<input id="cg_teacher" /></label>
-        <label>خلفية من المشروع<select id="cg_bg_select"></select></label>
-        <label>أو ارفعي خلفية مؤقتة<input type="file" id="cg_bg_upload" accept="image/*" /></label>
-      </form>
-      <div class="actions">
-        <button onclick="renderGeneric()">معاينة</button>
-        <button class="primary" onclick="downloadPDF('preview-generic','شهادة-تفوق')">حفظ كـ PDF</button>
-      </div>
-      <div class="canvas-wrap">
-        <div id="preview-generic" class="certificate a4 alt" style="position:relative; overflow:hidden;">
-          <img id="cg_bg_img" class="bg" src="" alt="">
-          <h3 class="cert-title">شهادة تفوق</h3>
-          <p class="cert-line">تُهدى للطالبة</p>
-          <div class="cert-name" id="cg_out_name">—</div>
-          <p class="cert-text">لـ <span id="cg_out_reason">—</span></p>
-          <div class="cert-footer">
-            <div class="left"><div>المعلمة</div><div id="cg_out_teacher">—</div></div>
-            <div class="right"><div>التاريخ</div><div id="cg_out_date">—</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="report-weekly" class="card">
-      <h2>تقرير إنجاز أسبوعي (معلمة)</h2>
-      <form class="grid" onsubmit="return false;">
-        <label>اسم المعلمة<input id="rw_teacher" /></label>
-        <label>الأسبوع<input id="rw_week" /></label>
-        <label>أبرز المنجزات<textarea id="rw_done" rows="3"></textarea></label>
-        <label>التحديات<textarea id="rw_chal" rows="3"></textarea></label>
-        <label>التوصيات<textarea id="rw_reco" rows="3"></textarea></label>
-        <label>التاريخ<input id="rw_date" type="date" /></label>
-        <label>شعار التقرير<select id="rw_logo_select"></select></label>
-      </form>
-      <div class="actions">
-        <button onclick="renderWeekly()">معاينة</button>
-        <button class="primary" onclick="downloadPDF('preview-weekly','تقرير-إنجاز-أسبوعي')">حفظ كـ PDF</button>
-      </div>
-      <div class="canvas-wrap">
-        <div id="preview-weekly" class="report a4">
-          <header class="rep-header">
-            <img id="rw_logo_img" src="assets/images/header.png" alt="header">
-          </header>
-          <h3>تقرير إنجاز أسبوعي</h3>
-          <table class="rep-table">
-            <tr><th>المعلمة</th><td id="rw_out_teacher">—</td></tr>
-            <tr><th>الأسبوع</th><td id="rw_out_week">—</td></tr>
-            <tr><th>التاريخ</th><td id="rw_out_date">—</td></tr>
-          </table>
-          <h4>أبرز المنجزات</h4><p id="rw_out_done">—</p>
-          <h4>التحديات</h4><p id="rw_out_chal">—</p>
-          <h4>التوصيات</h4><p id="rw_out_reco">—</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="report-parent" class="card">
-      <h2>تقرير تواصل مع ولي الأمر</h2>
-      <form class="grid" onsubmit="return false;">
-        <label>اسم الطالبة<input id="rp_student" /></label>
-        <label>المادة<input id="rp_subject" /></label>
-        <label>ملخص التواصل<textarea id="rp_summary" rows="3"></textarea></label>
-        <label>التاريخ<input id="rp_date" type="date" /></label>
-      </form>
-      <div class="actions">
-        <button onclick="renderParent()">معاينة</button>
-        <button class="primary" onclick="downloadPDF('preview-parent','تقرير-تواصل-ولي-أمر')">حفظ كـ PDF</button>
-      </div>
-      <div class="canvas-wrap">
-        <div id="preview-parent" class="report a4">
-          <header class="rep-header"><img src="assets/images/header.png" alt=""></header>
-          <h3>تقرير تواصل مع ولي الأمر</h3>
-          <table class="rep-table">
-            <tr><th>الطالبة</th><td id="rp_out_student">—</td></tr>
-            <tr><th>المادة</th><td id="rp_out_subject">—</td></tr>
-            <tr><th>التاريخ</th><td id="rp_out_date">—</td></tr>
-          </table>
-          <h4>الملخص</h4><p id="rp_out_summary">—</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="tools-batch" class="card">
-      <h2>توليد جماعي من CSV</h2>
-      <p>CSV: أعمدة <code>name, reason, date, teacher, serial</code> (اختياري).</p>
-      <input type="file" id="csvFile" accept=".csv" />
-      <div class="actions">
-        <button onclick="batchGenerate('thanks')">شهادات شكر (ZIP)</button>
-        <button onclick="batchGenerate('generic')">شهادات تفوق (ZIP)</button>
-      </div>
-      <div id="batchLog" class="log"></div>
-    </section>
-
-    <section id="assets" class="card">
-      <h2>الصور والمستندات داخل المشروع</h2>
-      <p>هذه الملفات محفوظة داخل المستودع. لإضافة ملفات جديدة: افتحي المستودع على GitHub → <b>Add file &gt; Upload files</b> ثم حطيها في <code>assets/images</code> أو <code>assets/docs</code> وحدثي الصفحة.</p>
-      <div class="grid">
-        <div><h3>الصور</h3><ul id="imagesList"></ul></div>
-        <div><h3>المستندات</h3><ul id="docsList"></ul></div>
-      </div>
-    </section>
-  </main>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
