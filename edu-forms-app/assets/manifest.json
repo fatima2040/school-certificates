@@ -1,0 +1,12 @@
+{
+  "images": [
+    "assets/images/logo.png",
+    "assets/images/header.png",
+    "assets/images/stamp.png",
+    "assets/images/bg1.png",
+    "assets/images/bg2.png"
+  ],
+  "docs": [
+    "assets/docs/example.txt"
+  ]
+}
