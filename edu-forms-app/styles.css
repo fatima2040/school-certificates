@@ -1,0 +1,72 @@
+*{box-sizing:border-box}
+:root{
+  --brand:#6a5acd; /* موف */
+  --brand-2:#2aa7a1; /* تركوازي */
+  --ink:#222;
+  --muted:#6b7280;
+  --bg:#f7f7fb;
+  --card:#fff;
+}
+html,body{height:100%}
+body{
+  margin:0; font-family:'Tajawal', system-ui, sans-serif; background:var(--bg); color:var(--ink);
+}
+.topbar{
+  position:sticky; top:0; z-index:50; display:flex; gap:12px; align-items:center; padding:10px 14px;
+  background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#fff;
+}
+.topbar h1{margin:0; font-size:18px; font-weight:800}
+.topbar #menuBtn{font-size:20px; padding:6px 10px; border:0; border-radius:6px; background:rgba(255,255,255,.15); color:#fff; cursor:pointer}
+.drawer{
+  position:fixed; inset-block:0; inset-inline-start:0; width:300px; background:#fff; border-inline-end:1px solid #eee; transform:translateX(0);
+  transition:.25s ease; z-index:60; padding-bottom:56px; overflow:auto;
+}
+.drawer.closed{transform:translateX( calc(-100% - 8px) );}
+.drawer-header{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid #eee}
+.drawer-header h2{margin:0; font-size:16px}
+.drawer-header button{border:0; background:transparent; font-size:22px; cursor:pointer}
+.nav{padding:10px 12px}
+.nav details{border:1px solid #eee; border-radius:10px; margin:8px 0; background:#fafafa}
+.nav summary{padding:12px 14px; cursor:pointer; list-style:none; font-weight:700}
+.nav .nav-link{display:block; padding:10px 16px; color:var(--ink); text-decoration:none}
+.nav .nav-link:hover{background:#f0f3ff}
+.drawer-footer{padding:12px 16px; border-top:1px solid #eee; color:var(--muted); font-size:13px}
+
+#content{margin-inline-start:320px; padding:16px; max-width:980px}
+@media (max-width:900px){
+  #content{margin-inline-start:0}
+  .drawer{transform:translateX(calc(-100% - 8px))}
+}
+.card{background:var(--card); border:1px solid #eee; border-radius:14px; padding:16px; margin:14px 0; box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.card h2{margin-top:0}
+.tips{margin:0 0 8px 0}
+.tips li{margin:6px 0}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+label{display:grid; gap:6px; font-weight:600}
+input, textarea, select{padding:10px 12px; border:1px solid #ddd; border-radius:10px; font-family:inherit}
+.actions{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 12px}
+button{padding:10px 14px; border:1px solid #ddd; border-radius:10px; background:#fff; cursor:pointer}
+button.primary{background:var(--brand); color:#fff; border-color:var(--brand)}
+.canvas-wrap{overflow:auto; background:#f2f6ff; padding:10px; border-radius:12px; border:1px dashed #cfd6ff}
+/* A4 canvas */
+.a4{width:210mm; min-height:297mm; background:#fff; margin:auto; padding:18mm; color:#111; position:relative}
+.certificate{display:flex; flex-direction:column; align-items:center; text-align:center; border:4px double var(--brand); border-radius:12px; padding:16mm; gap:8px}
+.certificate.alt{border-color:var(--brand-2)}
+.cert-header{display:flex; align-items:center; gap:12px}
+.cert-header .logo{width:64px; height:64px}
+.cert-title{font-size:28px; color:var(--brand); margin:4px 0 0}
+.cert-line{margin:0; color:#555}
+.cert-name{font-size:30px; font-weight:800; margin:4px 0 8px}
+.cert-text{font-size:18px}
+.cert-footer{display:flex; width:100%; margin-top:auto; justify-content:space-between; font-weight:600}
+.serial{position:absolute; inset-inline-start:18mm; inset-block-end:14mm; color:#888; font-size:12px}
+
+.report{background:#fff}
+.rep-header img, .rep-footer img{width:100%}
+.rep-table{width:100%; border-collapse:collapse; margin:8px 0 10px}
+.rep-table th,.rep-table td{border:1px solid #ddd; padding:8px 10px; text-align:start}
+.rep-table th{background:#f7f7fb; width:28%}
+h3{margin:10px 0 6px}
+h4{margin:10px 0 4px}
+p{line-height:1.8}
+.log{white-space:pre-wrap; font-family:ui-monospace,monospace; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:10px; margin-top:8px; max-height:200px; overflow:auto}

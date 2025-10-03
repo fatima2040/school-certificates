@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>نماذج تعليمية | شهادات وتقارير</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="menuBtn" aria-label="فتح القائمة">☰</button>
+    <h1>نماذج تعليمية</h1>
+  </header>
+
+  <aside id="drawer" class="drawer">
+    <div class="drawer-header">
+      <h2>القائمة</h2>
+      <button id="closeDrawer" aria-label="إغلاق">×</button>
+    </div>
+
+    <nav class="nav">
+      <details open>
+        <summary>نماذج وتقارير توثيق</summary>
+        <a href="#report-weekly" class="nav-link">تقرير إنجاز أسبوعي</a>
+        <a href="#report-parent" class="nav-link">تقرير تواصل مع ولي الأمر</a>
+      </details>
+
+      <details>
+        <summary>شهادات شكر وتقدير</summary>
+        <a href="#cert-thanks" class="nav-link">شهادة شكر</a>
+      </details>
+
+      <details>
+        <summary>شهادات متنوعة</summary>
+        <a href="#cert-generic" class="nav-link">شهادة تفوق</a>
+      </details>
+
+      <details>
+        <summary>استبيانات أنماط التعلم</summary>
+        <a href="#coming-soon" class="nav-link">(قريباً)</a>
+      </details>
+
+      <details>
+        <summary>أدوات</summary>
+        <a href="#tools-batch" class="nav-link">توليد جماعي من ملف CSV</a>
+      </details>
+    </nav>
+    <footer class="drawer-footer">
+      <p>إن صادفتك مشكلة أخبريني ❤️</p>
+    </footer>
+  </aside>
+
+  <main id="content">
+    <!-- Landing -->
+    <section id="home" class="card">
+      <h2>مرحباً يا فاطمة 👋</h2>
+      <p>هذه نسخة مبدئية تعمل على الجوال، تولّد شهادات وتقارير PDF مباشرة. افتحي القسم المطلوب من القائمة.</p>
+      <ul class="tips">
+        <li>يمكن تغيير الشعار والألوان من <code>styles.css</code>.</li>
+        <li>زر “حفظ كـ PDF” يصدّر المحتوى الظاهر في منطقة المعاينة.</li>
+        <li>زر “توليد جماعي” يقبل ملف CSV (أسماء فقط أو مع أعمدة أخرى).</li>
+      </ul>
+    </section>
+
+    <!-- Certificate: Thanks -->
+    <section id="cert-thanks" class="card">
+      <h2>شهادة شكر</h2>
+      <form class="grid" onsubmit="return false;">
+        <label>اسم الطالبة
+          <input id="ct_name" placeholder="مثال: سارة خالد" />
+        </label>
+        <label>المناسبة
+          <input id="ct_reason" placeholder="مثال: تميزها في مشروع STEM" />
+        </label>
+        <label>التاريخ
+          <input id="ct_date" type="date" />
+        </label>
+        <label>اسم المعلمة
+          <input id="ct_teacher" placeholder="مثال: فاطمة سعد العمري" />
+        </label>
+        <label>رقم تسلسلي (اختياري)
+          <input id="ct_serial" placeholder="مثال: 1447-001" />
+        </label>
+      </form>
+      <div class="actions">
+        <button onclick="renderThanks()">معاينة</button>
+        <button class="primary" onclick="downloadPDF('preview-thanks','شهادة-شكر')">حفظ كـ PDF</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <div id="preview-thanks" class="certificate a4">
+          <div class="cert-header">
+            <img src="assets/logo.png" alt="Logo" class="logo"/>
+            <div class="school">
+              <div>الثانوية الثانية والخمسون - مكتب تعليم العوالي</div>
+              <div>وزارة التعليم - المملكة العربية السعودية</div>
+            </div>
+          </div>
+          <h3 class="cert-title">شهادة شكر وتقدير</h3>
+          <p class="cert-line">تمنح للطالبة</p>
+          <div class="cert-name" id="ct_out_name">—</div>
+          <p class="cert-text">تقديراً ل<span id="ct_out_reason">—</span>.</p>
+          <div class="cert-footer">
+            <div class="left">
+              <div>المعلمة</div>
+              <div id="ct_out_teacher">—</div>
+            </div>
+            <div class="right">
+              <div>التاريخ</div>
+              <div id="ct_out_date">—</div>
+            </div>
+          </div>
+          <div class="serial" id="ct_out_serial"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificate: Generic -->
+    <section id="cert-generic" class="card">
+      <h2>شهادة تفوق</h2>
+      <form class="grid" onsubmit="return false;">
+        <label>اسم الطالبة
+          <input id="cg_name" placeholder="مثال: أروى محمد" />
+        </label>
+        <label>الإنجاز
+          <input id="cg_reason" placeholder="مثال: حصولها على 100٪ في الرياضيات" />
+        </label>
+        <label>التاريخ
+          <input id="cg_date" type="date" />
+        </label>
+        <label>المعلمة
+          <input id="cg_teacher" placeholder="مثال: فاطمة سعد العمري" />
+        </label>
+      </form>
+      <div class="actions">
+        <button onclick="renderGeneric()">معاينة</button>
+        <button class="primary" onclick="downloadPDF('preview-generic','شهادة-تفوق')">حفظ كـ PDF</button>
+      </div>
+      <div class="canvas-wrap">
+        <div id="preview-generic" class="certificate a4 alt">
+          <h3 class="cert-title">شهادة تفوق</h3>
+          <p class="cert-line">تُهدى للطالبة</p>
+          <div class="cert-name" id="cg_out_name">—</div>
+          <p class="cert-text">لـ <span id="cg_out_reason">—</span></p>
+          <div class="cert-footer">
+            <div class="left">
+              <div>المعلمة</div>
+              <div id="cg_out_teacher">—</div>
+            </div>
+            <div class="right">
+              <div>التاريخ</div>
+              <div id="cg_out_date">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report: Weekly -->
+    <section id="report-weekly" class="card">
+      <h2>تقرير إنجاز أسبوعي (معلمة)</h2>
+      <form class="grid" onsubmit="return false;">
+        <label>اسم المعلمة
+          <input id="rw_teacher" placeholder="مثال: فاطمة سعد العمري" />
+        </label>
+        <label>الأسبوع
+          <input id="rw_week" placeholder="مثال: الأسبوع الثالث - الفصل الأول" />
+        </label>
+        <label>أبرز المنجزات
+          <textarea id="rw_done" rows="3" placeholder="دروس علاجية، حصص إثرائية، مسابقات..."></textarea>
+        </label>
+        <label>التحديات
+          <textarea id="rw_chal" rows="3" placeholder="انقطاع منصة، غياب الطالبات، شُحّ الموارد..."></textarea>
+        </label>
+        <label>التوصيات
+          <textarea id="rw_reco" rows="3" placeholder="تعزيز الدعم التقني، شراكات، تدريب..."></textarea>
+        </label>
+        <label>التاريخ
+          <input id="rw_date" type="date" />
+        </label>
+      </form>
+      <div class="actions">
+        <button onclick="renderWeekly()">معاينة</button>
+        <button class="primary" onclick="downloadPDF('preview-weekly','تقرير-إنجاز-أسبوعي')">حفظ كـ PDF</button>
+      </div>
+
+      <div class="canvas-wrap">
+        <div id="preview-weekly" class="report a4">
+          <header class="rep-header">
+            <img src="assets/header.png" alt="header" />
+          </header>
+          <h3>تقرير إنجاز أسبوعي</h3>
+          <table class="rep-table">
+            <tr><th>المعلمة</th><td id="rw_out_teacher">—</td></tr>
+            <tr><th>الأسبوع</th><td id="rw_out_week">—</td></tr>
+            <tr><th>التاريخ</th><td id="rw_out_date">—</td></tr>
+          </table>
+          <h4>أبرز المنجزات</h4>
+          <p id="rw_out_done">—</p>
+          <h4>التحديات</h4>
+          <p id="rw_out_chal">—</p>
+          <h4>التوصيات</h4>
+          <p id="rw_out_reco">—</p>
+          <footer class="rep-footer">
+            <img src="assets/footer.png" alt="footer" />
+          </footer>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report: Parent -->
+    <section id="report-parent" class="card">
+      <h2>تقرير تواصل مع ولي الأمر</h2>
+      <form class="grid" onsubmit="return false;">
+        <label>اسم الطالبة
+          <input id="rp_student" placeholder="مثال: شهد ناصر" />
+        </label>
+        <label>المادة
+          <input id="rp_subject" placeholder="مثال: رياضيات 2ث" />
+        </label>
+        <label>ملخص التواصل
+          <textarea id="rp_summary" rows="3" placeholder="تذكير بالواجبات، ملاحظات سلوكية إيجابية..."></textarea>
+        </label>
+        <label>التاريخ
+          <input id="rp_date" type="date" />
+        </label>
+      </form>
+      <div class="actions">
+        <button onclick="renderParent()">معاينة</button>
+        <button class="primary" onclick="downloadPDF('preview-parent','تقرير-تواصل-ولي-أمر')">حفظ كـ PDF</button>
+      </div>
+      <div class="canvas-wrap">
+        <div id="preview-parent" class="report a4">
+          <header class="rep-header"><img src="assets/header.png" alt=""></header>
+          <h3>تقرير تواصل مع ولي الأمر</h3>
+          <table class="rep-table">
+            <tr><th>الطالبة</th><td id="rp_out_student">—</td></tr>
+            <tr><th>المادة</th><td id="rp_out_subject">—</td></tr>
+            <tr><th>التاريخ</th><td id="rp_out_date">—</td></tr>
+          </table>
+          <h4>الملخص</h4>
+          <p id="rp_out_summary">—</p>
+          <footer class="rep-footer"><img src="assets/footer.png" alt=""></footer>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools: Batch -->
+    <section id="tools-batch" class="card">
+      <h2>توليد جماعي من CSV</h2>
+      <p>حمّلي ملف CSV بعمود <code>name</code> (ويمكن إضافة أعمدة reason, date, teacher) ثم اختاري نوع الإخراج:</p>
+      <input type="file" id="csvFile" accept=".csv" />
+      <div class="actions">
+        <button onclick="batchGenerate('thanks')">شهادات شكر (ZIP)</button>
+        <button onclick="batchGenerate('generic')">شهادات تفوق (ZIP)</button>
+      </div>
+      <div id="batchLog" class="log"></div>
+    </section>
+
+    <section id="coming-soon" class="card">
+      <h2>قريباً ✨</h2>
+      <p>استبيانات أنماط التعلم الجاهزة والنماذج العلاجية.</p>
+    </section>
+  </main>
+
+  <!-- libs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNa5Hh9G5tZQ0hR5Fq8qE9B7bT1V3Qm8xk2Q4b9fK3eXjG3vR4YdZLk9zB/3WzU3mFvE1I9xQ7f0k9E2rQjALA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-Xmtd8rT2y0rLDkYFv9rj7Ax7hY3kqE2i6y7mZBqzV+3Q8P7v6sV3fE3iFvO9bq5I0sQb0xJ1Qd4bq6uXr0w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
